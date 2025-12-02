@@ -1,0 +1,15 @@
+body {
+    font-family: Arial, sans-serif;
+    padding: 30px;
+}
+
+form {
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+}
+
+input, textarea, select, button {
+    margin-bottom: 12px;
+    padding: 8px;
+}

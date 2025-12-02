@@ -1,16 +1,31 @@
-const express = require("express");
-const cors = require("cors");
+import express from "express";
+import bodyParser from "body-parser";
+import keluhanRoutes from "./routes/keluhan.js";
+
+const express = require('express');
+const bodyParser = require('body-parser');
+const keluhanRoutes = require('./routes/keluhan');
+const path = require('path');
 
 const app = express();
 
+// EJS VIEW ENGINE
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, '../views'));
 
-app.use(cors());
-app.use(express.json());
+// STATIC FILES (CSS/JS)
+app.use(express.static(path.join(__dirname, '../public')));
+
+// Body parser
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Routes
-const keluhanRoutes = require("./routes/keluhanRoutes");
-app.use("/api/keluhan", keluhanRoutes);
+app.use('/api/keluhan', keluhanRoutes);
 
-app.listen(3000, () => {
-  console.log("✔ Server running on port 3000");
+// Halaman form
+app.get('/', (req, res) => {
+    res.render('form');
 });
+
+module.exports = app;
